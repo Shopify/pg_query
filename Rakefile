@@ -25,14 +25,6 @@ CLEAN.include 'tmp/**/*'
 CLEAN.include 'ext/pg_query/*.o'
 CLEAN.include 'lib/pg_query/pg_query.bundle'
 
-def system(str)
-  puts "Executing: #{str}"
-  gets "Press Enter to continue"
-  result = system(str)
-  puts "Result: #{result}"
-  result
-end
-
 task :update_source do
   workdir = File.join(__dir__, 'tmp')
   libdir = File.join(workdir, '../../libpg_query')
