@@ -27,30 +27,10 @@ CLEAN.include 'lib/pg_query/pg_query.bundle'
 
 task :update_source do
   workdir = File.join(__dir__, 'tmp')
-  libdir = File.join(workdir, 'libpg_query-' + LIB_PG_QUERY_TAG)
-  filename = File.join(workdir, 'libpg_query-' + LIB_PG_QUERY_TAG + '.tar.gz')
+  libdir = File.join(workdir, '../libpg_query')
   testfilesdir = File.join(__dir__, 'spec/files')
   extdir = File.join(__dir__, 'ext/pg_query')
   extbakdir = File.join(workdir, 'extbak')
-
-  unless File.exist?(filename)
-    system("mkdir -p #{workdir}")
-    File.open(filename, 'wb') do |target_file|
-      URI.open('https://codeload.github.com/pganalyze/libpg_query/tar.gz/' + LIB_PG_QUERY_TAG, 'rb') do |read_file|
-        target_file.write(read_file.read)
-      end
-    end
-
-    checksum = Digest::SHA256.hexdigest(File.read(filename))
-
-    if checksum != LIB_PG_QUERY_SHA256SUM
-      raise "SHA256 of #{filename} does not match: got #{checksum}, expected #{LIB_PG_QUERY_SHA256SUM}"
-    end
-  end
-
-  unless Dir.exist?(libdir)
-    system("tar -xzf #{filename} -C #{workdir}") || raise('ERROR')
-  end
 
   # Backup important files from ext dir
   system("rm -fr #{extbakdir}")
