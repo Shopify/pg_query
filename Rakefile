@@ -42,6 +42,7 @@ task :update_source do
   # Reduce everything down to one directory
   system("mkdir -p #{extdir}")
   system("cp -a #{libdir}/src/* #{extdir}/")
+  system("mkdir -p #{extdir}/include")
   system("mv #{extdir}/postgres/include #{extdir}/include/postgres")
   system("mv #{extdir}/postgres/* #{extdir}/")
   system("rmdir #{extdir}/postgres")
