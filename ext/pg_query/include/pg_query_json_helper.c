@@ -1,4 +1,3 @@
-#include "postgres.h"
 #include "lib/stringinfo.h"
 
 #define booltostr(x)	((x) ? "true" : "false")
