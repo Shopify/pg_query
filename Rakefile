@@ -42,7 +42,11 @@ task :update_source do
   # Reduce everything down to one directory
   system("mkdir -p #{extdir}")
   system("cp -a #{libdir}/src/* #{extdir}/")
+  # Remove _defs.c and _conds.c files that should not be compiled standalone
+  system("rm -f #{extdir}/*_defs.c #{extdir}/*_conds.c")
   system("mkdir -p #{extdir}/include")
+  # Move the _defs.c and _conds.c files to include directory where they belong
+  system("cp -a #{libdir}/src/*_defs.c #{libdir}/src/*_conds.c #{extdir}/include/")
   system("mv #{extdir}/postgres/include #{extdir}/include/postgres")
   system("mv #{extdir}/postgres/* #{extdir}/")
   system("rmdir #{extdir}/postgres")
